@@ -49,7 +49,7 @@ The [task](TaskDescription.md) is to code up a basic function that replicates th
 
 ---
 
-### Option 3: Run in IntelliJ IDEA
+### Option 2: Run in IntelliJ IDEA
 1. Open IntelliJ IDEA.  
 2. Click **Open** and select the `Arsipa_QA_Test_Task` folder.  
 3. If prompted to set a Project SDK (JDK):
