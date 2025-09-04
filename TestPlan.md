@@ -17,16 +17,16 @@ See `README.md` for execution steps.
 ---
 
 ## 2. Boundary Values
-It is a safety-critical system, so I'd choose the triple-boundary value checkfor it.
+It is a safety-critical system, so I'd choose the triple-boundary value check for it.
 
 | Scenario                      | Input Value | Expected Behavior                              |
 |-------------------------------|-------------|------------------------------------------------|
 | Just below Minimum throttle   | -1          | Clamped to 0, OFF, 0W                          |
 | Minimum throttle              | 0           | OFF, 0W                                        |
-| Just above Maximum throttle   | 1           | ON, 4W                                         |
+| Just above Minimum throttle   | 1           | ON, 4W                                         |
 | Just below Maximum throttle   | 249         | ON, 996W                                       |
 | Maximum throttle              | 250         | ON, 1000W                                      |
-| Just above maximum            | 251         | Clamped to 250, ON, 1000W                      |
+| Just above Maximum            | 251         | Clamped to 250, ON, 1000W                      |
 
 See `README.md` for execution steps.
 

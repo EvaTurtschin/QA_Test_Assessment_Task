@@ -26,8 +26,8 @@ public class BatteryController {
             }
 
             // Calculate battery state and power
-            int batteryPower = ThrottleBatteryInteraction(throttleSignal);
-            String batteryState = BatteryState(batteryPower);
+            int batteryPower = throttleBatteryInteraction(throttleSignal);
+            String batteryState = batteryState(batteryPower);
 
             // Warn if input was out of range and clamped
             if (throttleSignal < 0 || throttleSignal > 250) {
@@ -46,7 +46,7 @@ public class BatteryController {
 
 // The task doesn’t specify behavior for out-of-range throttle values.
 // Using real-world logic: such systems usually clamp inputs to safe limits.
-    public static int ThrottleBatteryInteraction(int throttleSignal) {
+    public static int throttleBatteryInteraction(int throttleSignal) {
         if (throttleSignal < 0) {          //limit values to [0;250] range
             throttleSignal = 0;
         } else if (throttleSignal > 250) {
@@ -55,7 +55,7 @@ public class BatteryController {
         return throttleSignal * 4;         // Calculate power (4 W per km/h)
     }
 
-    public static String BatteryState(int batteryPower) {
+    public static String batteryState(int batteryPower) {
         return (batteryPower == 0) ? "OFF" : "ON";
     }
 }

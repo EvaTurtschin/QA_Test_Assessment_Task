@@ -31,14 +31,17 @@ The [task](TaskDescription.md) is to code up a basic function that replicates th
    ```bash
    javac -version
    java -version
+   ```
 
 2. Compile the program:
    ```bash
    javac BatteryController.java
+   ```
 
 3. Run the compiled program:
    ```bash
    java BatteryController
+   ```
 
 4. Enter throttle values in the console:
 
