@@ -1,6 +1,6 @@
 # Battery-Throttle Interaction Testing Plan
 
-This document describes test scenarios for verifying the interaction between the battery and throttle logic in `BatteryController.java`. The focus is on validating correct system behavior, edge cases, and failure states.
+This document describes test scenarios for verifying the interaction between the battery and throttle logic in [BatteryController.java](BatteryController.java). The focus is on validating correct system behavior, edge cases, and failure states.
 
 ---
 
@@ -12,18 +12,21 @@ This document describes test scenarios for verifying the interaction between the
 | 50                     | ON                     | 200                |
 | 250                    | ON                     | 1000               |
 
-See `README.md` for instructions on running these tests.
+See `README.md` for execution steps.
 
 ---
 
 ## 2. Boundary Values
+It is a safety-critical system, so I'd choose the triple-boundary value checkfor it.
 
 | Scenario                      | Input Value | Expected Behavior                              |
 |-------------------------------|-------------|------------------------------------------------|
+| Just below Minimum throttle   | -1          | Clamped to 0, OFF, 0W                          |
 | Minimum throttle              | 0           | OFF, 0W                                        |
+| Just above Maximum throttle   | 1           | ON, 4W                                         |
+| Just below Maximum throttle   | 249         | ON, 996W                                       |
 | Maximum throttle              | 250         | ON, 1000W                                      |
-| Below minimum (negative)      | -20         | Clamped to 0, OFF, 0W                          |
-| Above maximum                 | 300         | Clamped to 250, ON, 1000W                      |
+| Just above maximum            | 251         | Clamped to 250, ON, 1000W                      |
 
 See `README.md` for execution steps.
 
@@ -31,12 +34,14 @@ See `README.md` for execution steps.
 
 ## 3. Invalid Input Handling
 
-| Input Example | Expected Behavior                             |
-|---------------|-----------------------------------------------|
-| `"abc"`       | Print error message: "Invalid input..."       |
-| `""` (empty)  | Print error message                           |
-| `" "` (space) | Print error message                           |
-| `"N"` or `"n"`| Program exits gracefully                      |
+| Input Example             | Expected Behavior                             |
+|---------------------------|-----------------------------------------------|
+| `"abc"`                   | Print error message: "Invalid input..."       |
+| `""` (empty)              | Print error message                           |
+| `" "` (space)             | Print error message                           |
+| (unexpected large values) | Print error message                           |
+| `"-0"`                    | Read as 0, OFF, 0W                            |
+| `"N"` or `"n"`            | **Exit case**: Program exits gracefully       |
 
 See `README.md` for execution steps.
 
@@ -46,10 +51,16 @@ See `README.md` for execution steps.
 
 Potential scenarios to think about for future testing, even if not fully modeled in the current code:
 
+- Saturation/clamp behavior clearly defined.
 - Lost or unreadable throttle signal → should default to `0 km/h`.
 - Corrupted battery power values (negative numbers) → should be rejected/reset.
 - System stability with repeated inputs at high frequency.
-- Overflow or unexpected large values → currently clamped.
+- Large or extreme numbers outside expected range → should be handled gracefully.
+- Battery not switching state instantly with throttle change.
+- Sudden power spikes or drops with small throttle changes.
+- Implimentation Considerations, as Input/output types (int vs float)
+- Rounding rules for integer-only interfaces.
+- How system handles simultaneous or repeated inputs.
 
 ---
 
