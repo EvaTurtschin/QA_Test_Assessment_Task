@@ -11,6 +11,7 @@ The [task](TaskDescription.md) is to code up a basic function that replicates th
 |--------------------------|-------------|
 | [BatteryController.java](BatteryController.java) | Main program. Reads throttle input, calculates battery power and state. |
 | [TEST_PLAN.md](TestPlan.md)           | Detailed test plan with normal, boundary, and failure scenarios. |
+| [BugReport.md](BugReport.md)        | Test bug report with reproduction steps.               |
 | [README.md](README.md)              | Project overview, setup instructions, and usage guide. |
 
 ---
